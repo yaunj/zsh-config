@@ -4,6 +4,8 @@ compinit
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
 
+# fix completion for special directories like ..
+zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(..)'
 
 # Modified Ubuntu defaults
 zstyle ':completion:*' completer _expand _complete _correct _approximate
