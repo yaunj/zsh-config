@@ -64,9 +64,14 @@ esac
 bindkey -e
 bindkey '^[[1;5C' forward-word       # ctrl-right
 bindkey '^[[1;5D' backward-word      # ctrl-left
+bindkey '^[OC' forward-word          # ctrl-right in tmux
+bindkey '^[OD' backward-word         # ctrl-left in tmux
 bindkey '^[[A' up-line-or-search     # up to search history
 bindkey '^[[B' down-line-or-search   # down to search history
 bindkey '\e[Z' reverse-menu-complete # shift-tab
+bindkey "${terminfo[khome]}" beginning-of-line # home
+bindkey "${terminfo[kend]}"  end-of-line       # end
+bindkey '^@' push-line               # ctrl-space
 
 # Use custom prompt
 prompt_yaunj_setup
