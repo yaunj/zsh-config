@@ -15,3 +15,8 @@ alias :q=exit
 alias :wq=exit
 
 alias tohtml="vim -c ':let html_number_lines = 1' -c ':let use_xhtml = 1' -c ':let html_use_css = 1' -c ':TOhtml' -c ':w' -c ':q' -c ':q'"
+
+alias -s pcap="tcpdump -nn -tttt -r"
+alias -s gpg=gpg
+alias -s asc=gpg
+alias -s pgp=gpg
