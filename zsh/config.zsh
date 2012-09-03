@@ -53,6 +53,14 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr " %F{red}✗%f"
 zstyle ':vcs_info:*' stagedstr   " %F{green}%B↑%b%f"
 
+case $TERM in
+    linux)
+        zstyle ':prompt:yaunj' str-ok ':)'
+        zstyle ':prompt:yaunj' str-not-ok ':('
+        zstyle ':prompt:yaunj' str-bg 'bg:'
+        zstyle ':prompt:yaunj' color-time gray
+esac
+
 bindkey -e
 bindkey '^[[1;5C' forward-word       # ctrl-right
 bindkey '^[[1;5D' backward-word      # ctrl-left
