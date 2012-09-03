@@ -15,7 +15,7 @@ This prompt is configurable through styles:
     strings:
         str-title - string used in terminal title
         str-ok - string displayed when last process had return code 0
-        str-nok-ok - string displayed when return code is non-zero
+        str-not-ok - string displayed when return code is non-zero
         str-bg - prefix for number of background jobs
 
 You can set styles in the current terminal to test things out, values will be
