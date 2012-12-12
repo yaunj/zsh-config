@@ -62,10 +62,11 @@ case $TERM in
 esac
 
 bindkey -e
-bindkey '^[[1;5C' forward-word       # ctrl-right
-bindkey '^[[1;5D' backward-word      # ctrl-left
-bindkey '^[OC' forward-word          # ctrl-right in tmux
-bindkey '^[OD' backward-word         # ctrl-left in tmux
+if [[ -n $TMUX ]]; then
+else
+    bindkey '^[[1;5C' forward-word       # ctrl-right
+    bindkey '^[[1;5D' backward-word      # ctrl-left
+fi
 bindkey '^[[A' up-line-or-search     # up to search history
 bindkey '^[[B' down-line-or-search   # down to search history
 bindkey '\e[Z' reverse-menu-complete # shift-tab
