@@ -38,7 +38,7 @@ setopt prompt_subst           # do substitution for vars in prompt
 setopt correct                # spell corrections
 setopt complete_in_word
 
-setopt extended_glob
+#setopt extended_glob
 
 test -f /etc/zsh_command_not_found && source /etc/zsh_command_not_found
 
@@ -75,3 +75,29 @@ bindkey '^@' push-line               # ctrl-space
 
 # Use custom prompt
 prompt_yaunj_setup
+
+function preexec()
+{
+    __CMD_START_TIME=$(date +%s)
+    __CMD_NAME=${1%% *}
+}
+
+function precmd()
+{
+    __CMD_END_TIME=$(date +%s)
+    # In new shells, no commands have been run and start time is not set.
+    local diff=$((${__CMD_END_TIME} - ${__CMD_START_TIME:-$__CMD_END_TIME}))
+
+    # If command took three seconds or more: print elapsed time
+    if [[ $diff -ge 3 ]]; then
+        local days=$(($(date -u -d @${diff} +'%-j') - 1))
+        local time="$(date -u -d @${diff} +'%-H %-M %-S')"
+        time=(${(s: :)time})
+        local elapsed=""
+        if [[ "${days}"    -gt 0 ]]; then elapsed="${days}d "; fi
+        if [[ "${time[1]}" -gt 0 ]]; then elapsed="${elapsed}${time[1]}h "; fi
+        if [[ "${time[2]}" -gt 0 ]]; then elapsed="${elapsed}${time[2]}m "; fi
+        if [[ "${time[3]}" -gt 0 ]]; then elapsed="${elapsed}${time[3]}s "; fi
+        echo "... ${__CMD_NAME} took ${elapsed}" >&2
+    fi
+}
