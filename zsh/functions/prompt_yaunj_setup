@@ -37,9 +37,12 @@ prompt_yaunj_setup() {
 prompt_yaunj_update_title() {
     # escape '%' chars in $1, make nonprintables visible
     a=${(V)1//\%/\%\%}
+    a=${(V)1//\[/\\[}
+    a=${(V)1//\]/\\]}
 
     # Truncate command, and join lines.
     a=$(print -Pn "%40>...>$a" | tr -d "\n")
+    #a=${a/ */}
 
     if [[ $TERM_PROGRAM == "Apple_Terminal" ]]; then
         printf '\e]7;%s\a' "file://$HOST${PWD// /%20}"
@@ -49,7 +52,7 @@ prompt_yaunj_update_title() {
                 print -Pn "\ek$a:$3\e\\"      # screen title (in ^A")
                 ;;
             *xterm*|*rxvt*)
-                print -Pn "\e]2;$2 | $a:$3\a" # plain xterm title
+                print -Pn "\e]2;${a} (${2}:${3})\a" # plain xterm title
                 ;;
         esac
     fi
