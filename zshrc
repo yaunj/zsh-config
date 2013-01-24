@@ -4,7 +4,6 @@ if [[ $(uname) = 'Linux' ]]; then
 fi
 if [[ $(uname) = 'Darwin' ]]; then
     IS_MAC=1
-    export __CF_USER_TEXT_ENCODING=0x1F5:0x8000100:0x8000100
 fi
 
 source $HOME/.env
