@@ -1,9 +1,9 @@
 ls --color=auto &>/dev/null &&
     alias ls="ls -F --color=auto" || alias ls="ls -F -G"
 
-if [[ $IS_LINUX -eq 1 ]]; then
+if [[ "${OSTYPE}" =~ "linux.*" ]]; then
     alias open=xdg-open
-elif [[ $IS_MAC -eq 1 ]]; then
+elif [[ "${OSTYPE}" =~ "darwin" ]]; then
     alias locatemd='mdfind kMDItemDisplayName \=\= '
 
     local MACVIM=/Applications/MacVim.app/Contents/MacOS/Vim
