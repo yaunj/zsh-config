@@ -1,4 +1,7 @@
 export HISTFILE=~/.zsh_history
+if [[ -f ~/.profile ]]; then
+    emulate sh -c '. ~/.profile'
+fi
 
 # Include files
 test -r ${HOME}/.env && source ${HOME}/.env
