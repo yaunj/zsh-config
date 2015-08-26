@@ -1,3 +1,5 @@
+export HISTFILE=~/.zsh_history
+
 # Include files
 test -r ${HOME}/.env && source ${HOME}/.env
 source $HOME/.zsh/config.zsh
