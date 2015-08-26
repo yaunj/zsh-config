@@ -1,4 +1,7 @@
 export HISTFILE=~/.zsh_history
+export EDITOR=vim
+export VISUAL=vim
+
 if [[ -f ~/.profile ]]; then
     emulate sh -c '. ~/.profile'
 fi
