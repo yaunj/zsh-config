@@ -3,6 +3,7 @@ zle -N self-insert url-quote-magic
 autoload run-help             # try pressing meta-h while writing a command
 autoload colors; colors;
 
+WORDCHARS="${WORDCHARS:s@/@}"
 dircolors &>/dev/null
 if [[ $? -eq 0 ]]; then
     eval "$(dircolors -b)"
@@ -12,8 +13,8 @@ else
 fi
 
 # Add our own functions to fpath and load all of them
-fpath=(~/.zsh/functions $fpath)
-autoload -U ~/.zsh/functions/*(:t)
+fpath=(${ZDOTDIR}/.zsh/functions $fpath)
+autoload -U ${ZDOTDIR}/.zsh/functions/*(:t)
 
 setopt auto_name_dirs
 setopt auto_pushd             # use pushd implicitly
@@ -44,14 +45,14 @@ test -f /etc/zsh_command_not_found && source /etc/zsh_command_not_found
 
 # Formats and setup for vcs_info
 zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:git:*' formats '%F{0}%s/%F{3}%b%f%c%u'
-zstyle ':vcs_info:*'     formats '%F{0}%s/%F{3}%b%f'
+zstyle ':vcs_info:git:*' formats '%F{yellow}%s/%b%f%c%u'
+zstyle ':vcs_info:*'     formats '%F{yellow}%s/%b%f'
 zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%F{3}%b:%r%f'
 zstyle ':vcs_info:*' branchformat '%F{5}%b%f'
 zstyle ':vcs_info:*' enable git hg svn
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' unstagedstr " %F{red}✗%f"
-zstyle ':vcs_info:*' stagedstr   " %F{green}%B↑%b%f"
+zstyle ':vcs_info:*' unstagedstr " %F{red}-%f"
+zstyle ':vcs_info:*' stagedstr   " %F{green}+%f"
 
 case $TERM in
     linux)
@@ -59,6 +60,10 @@ case $TERM in
         zstyle ':prompt:yaunj' str-not-ok ':('
         zstyle ':prompt:yaunj' str-bg 'bg:'
         zstyle ':prompt:yaunj' color-time gray
+        ;;
+    *)
+        zstyle ':prompt:yaunj' str-ok '%%'
+        zstyle ':prompt:yaunj' str-not-ok '%%'
 esac
 
 bindkey -e

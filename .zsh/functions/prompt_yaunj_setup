@@ -69,7 +69,7 @@ prompt_yaunj_precmd() {
     local titlestr
 
     zstyle -s :prompt:yaunj color-time timecolor
-    timecolor=${timecolor:-'black'}
+    timecolor=${timecolor:-'gray'}
     zstyle -s :prompt:yaunj color-host hostcolor
     hostcolor=${hostcolor:-'yellow'}
     zstyle -s :prompt:yaunj color-ok okcolor
@@ -85,9 +85,14 @@ prompt_yaunj_precmd() {
     zstyle -s :prompt:yaunj str-title titlestr
     titlestr=${titlestr:-"$USER@%m"}
 
+    local venv
+    if [[ -n "$VIRTUAL_ENV_PROMPT" ]]; then
+        venv=" 🐍${VIRTUAL_ENV_PROMPT:0:-1}"
+    fi
+
     PROMPT="%F{$timecolor}%T %F{$hostcolor}%m%f:%U%~%u
 %(1j.$bgstr%j .)"'${scm_char}'"%(?.%F{$okcolor}$okstr%f.%F{$badcolor}$badstr%f) "
-    RPROMPT="%(?..%F{$badcolor}(%?%)%f) "'${vcs_info_msg_0_}'
+    RPROMPT="%(?..%F{$badcolor}(%?%)%f) "'${vcs_info_msg_0_}'"${venv}"
     SPROMPT="%F{$badcolor}%R%f → %F{$okcolor}%r%f \
 (%F{$okcolor}Yes%f, %F{$badcolor}No%f, Abort, Edit) "
 
